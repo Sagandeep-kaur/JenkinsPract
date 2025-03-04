@@ -21,10 +21,10 @@ pipeline {
                     // Trigger three downstream jobs in parallel
                     parallel(
                         "Downstream Job 1": {
-                            build job: 'downstream-job-1'
+                            build job: 'pytest_job1'
                         },
                         "Downstream Job 2": {
-                            build job: 'downstream-job-2'
+                            build job: 'pytest_job2'
                         },
                        
                     )
