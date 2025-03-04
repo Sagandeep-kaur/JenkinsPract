@@ -1,0 +1,101 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define Python virtual environment path
+        VENV_DIR = "${WORKSPACE}/.venv"
+        REPORT_DIR = "${WORKSPACE}/test-reports"
+    }
+
+    parameters {
+        
+        string(name: 'PYTEST_OPTIONS', defaultValue: '-v', description: 'Additional options for pytest')
+        //booleanParam(name: 'ENABLE_VERBOSE', defaultValue: true, description: 'Enable verbose output (-v)')
+    }
+    
+
+    stages {
+       stage('Trigger Downstream Jobs') {
+            steps {
+                script {
+                    // Trigger three downstream jobs in parallel
+                    parallel(
+                        "Downstream Job 1": {
+                            build job: 'downstream-job-1'
+                        },
+                        "Downstream Job 2": {
+                            build job: 'downstream-job-2'
+                        },
+                       
+                    )
+                }
+            }
+       }
+        stage('Checkout') {
+            steps {
+                // Checkout the code from the repository
+                checkout scm
+
+            }
+        }
+        
+        stage('Set up Python Environment') {
+            steps {
+                // Create a virtual environment if it doesn't exist
+                script {
+                    if (!fileExists("${VENV_DIR}/bin/activate")) {
+                        bat "python -m venv ${VENV_DIR}"
+                        
+                }
+                }
+                // Install required dependencies
+                bat """
+           
+                    //${VENV_DIR}\\Scripts\\activate
+                    call ${VENV_DIR}\\Scripts\\activate.bat
+                     pip --version
+                     pip3 install -r requirements.txt
+                     pip3 install pytest-xdist
+                     pip3 show selenium
+                     pip3 install pytest-html
+                """
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                // Run tests with pytest and generate HTML report
+                script {
+                    //def pytest_command = pytest 
+                        
+                        //if (params.ENABLE_VERBOSE) {
+                            //pytest_command += "-v"
+                       // }
+                    bat """
+                        if not exist "${REPORT_DIR}" mkdir "${REPORT_DIR}"
+                        call ${VENV_DIR}\\Scripts\\activate.bat
+                        pytest ${params.PYTEST_OPTIONS} --maxfail=5 --disable-warnings --html="${REPORT_DIR}\\test_report.html"
+                        
+                        dir "${REPORT_DIR}"
+                       
+                    """
+                }
+            }
+        }
+
+        stage('Publish Report') {
+            steps {
+                // Archive the test results (HTML file)
+                //archiveArtifacts artifacts: '**/test-reports/test_report.html', allowEmptyArchive: true
+                archiveArtifacts artifacts: '**/test-reports/test_report.html', allowEmptyArchive: true
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up, deactivate the virtual environment
+            cleanWs()
+        }
+    }
+}
