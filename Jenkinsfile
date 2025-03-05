@@ -16,22 +16,22 @@ pipeline {
     
 
     stages {
-       stage('Trigger Downstream Jobs') {
-            steps {
-                script {
+       //stage('Trigger Downstream Jobs') {
+            //steps {
+                //script {
                     // Trigger three downstream jobs in parallel
-                    parallel(
-                        "Downstream Job 1": {
-                            build job: 'pytest_job1'
-                        },
-                        "Downstream Job 2": {
-                            build job: 'pytest_job2'
-                        },
+                   // parallel(
+                       // "Downstream Job 1": {
+                          //  build job: 'pytest_job1'
+                       // },
+                       // "Downstream Job 2": {
+                       //     build job: 'pytest_job2'
+                      //  },
                        
-                    )
-                }
-            }
-       }
+                //    )
+              //  }
+       //     }
+   //    }
         stage('Checkout') {
             steps {
                    script {
