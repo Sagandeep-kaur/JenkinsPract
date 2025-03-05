@@ -80,7 +80,7 @@ pipeline {
                     
                        withSonarQubeEnv('SonarQube') {
                         bat """
-                            sonar-scanner -Dsonar.login=%SONAR_TOKEN%
+                            C:\sonar-scanner-4.6.2.2472-windows\bin\  -Dsonar.login=%SONAR_TOKEN%
                         """
                     }
                 }
