@@ -66,6 +66,7 @@ pipeline {
                      pip --version
                      pip3 install -r requirements.txt
                      pip3 install pytest-xdist
+                     pip3 install  pytest-junitxml
                      pip3 show selenium
                      pip3 install pytest-html
                 """
@@ -84,7 +85,7 @@ pipeline {
                     bat """
                         if not exist "${REPORT_DIR}" mkdir "${REPORT_DIR}"
                         call ${VENV_DIR}\\Scripts\\activate.bat
-                        pytest ${params.PYTEST_OPTIONS} --maxfail=5 --disable-warnings --html="${REPORT_DIR}\\test_report.html"
+                        pytest ${params.PYTEST_OPTIONS} --maxfail=5 --disable-warnings --html="${REPORT_DIR}\\test_report.html" --junitxml="${REPORT_DIR}\\test_report.xml"
                         
                         dir "${REPORT_DIR}"
                        
@@ -98,7 +99,8 @@ pipeline {
                 // Archive the test results (HTML file)
                 //archiveArtifacts artifacts: '**/test-reports/test_report.html', allowEmptyArchive: true
                 archiveArtifacts artifacts: '**/test-reports/test_report.html', allowEmptyArchive: true
-            }
+                archiveArtifacts artifacts: '**/test-reports/test_report.xml', allowEmptyArchive: true
+            }    
         }
     }
 
