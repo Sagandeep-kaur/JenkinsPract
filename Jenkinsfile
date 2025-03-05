@@ -73,7 +73,16 @@ pipeline {
                 """
             }
         }
-
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                        // Use the SonarQube token in your sonar-scanner command
+                        sh 'sonar-scanner -Dsonar.login=$SONAR_TOKEN'
+                    }
+                }
+            }
+        }
         stage('Run Tests') {
             steps {
                 // Run tests with pytest and generate HTML report
