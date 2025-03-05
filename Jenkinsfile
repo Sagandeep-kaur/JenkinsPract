@@ -79,9 +79,9 @@ pipeline {
                 script {
                     
                        withSonarQubeEnv('SonarQube') {
-                        bat '''
+                        bat """
                             sonar-scanner -Dsonar.login=%SONAR_TOKEN%
-                        '''
+                        """
                     }
                 }
             }
