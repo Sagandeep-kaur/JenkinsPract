@@ -78,7 +78,9 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                         // Use the SonarQube token in your sonar-scanner command
-                        sh 'sonar-scanner -Dsonar.login=$SONAR_TOKEN'
+                       bat """
+                        sonar-scanner -Dsonar.login=%SONAR_TOKEN%
+                        """
                     }
                 }
             }
