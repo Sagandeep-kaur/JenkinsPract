@@ -6,6 +6,7 @@ pipeline {
         VENV_DIR = "${WORKSPACE}/.venv"
         REPORT_DIR = "${WORKSPACE}/test-reports"
         SONARQUBE = 'SonarQube'
+        SONAR_TOKEN = 'sonar-token'
     }
 
     parameters {
@@ -76,11 +77,11 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                        // Use the SonarQube token in your sonar-scanner command
-                       bat """
-                        sonar-scanner -Dsonar.login=%SONAR_TOKEN%
-                        """
+                    
+                       withSonarQubeEnv('SonarQube') {
+                        bat '''
+                            sonar-scanner -Dsonar.login=%SONAR_TOKEN%
+                        '''
                     }
                 }
             }
