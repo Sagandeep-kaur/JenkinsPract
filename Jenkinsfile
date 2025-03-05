@@ -10,6 +10,7 @@ pipeline {
     parameters {
         
         string(name: 'PYTEST_OPTIONS', defaultValue: '-v', description: 'Additional options for pytest')
+        string(name: 'BRANCH_NAME', defaultValue: 'master', description: 'Branch to checkout')
         //booleanParam(name: 'ENABLE_VERBOSE', defaultValue: true, description: 'Enable verbose output (-v)')
     }
     
