@@ -41,6 +41,7 @@ pipeline {
                               branches: [[name: "*/${params.BRANCH_NAME}"]],
                               userRemoteConfigs: [[url: 'https://github.com/Sagandeep-kaur/JenkinsPract.git']]
                     ])
+                    bat 'echo Branch Name: ${params.BRANCH_NAME}'
                    }
 
             }
