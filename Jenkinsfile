@@ -5,6 +5,7 @@ pipeline {
         // Define Python virtual environment path
         VENV_DIR = "${WORKSPACE}/.venv"
         REPORT_DIR = "${WORKSPACE}/test-reports"
+        SONARQUBE = 'SonarQube'
     }
 
     parameters {
