@@ -34,8 +34,14 @@ pipeline {
        }
         stage('Checkout') {
             steps {
+                   script {
                 // Checkout the code from the repository
-                checkout scm
+                // Checkout the branch specified by the user in the build parameter
+                    checkout([$class: 'GitSCM',
+                              branches: [[name: "*/${params.BRANCH_NAME}"]],
+                              userRemoteConfigs: [[url: 'https://github.com/your-repository.git']]
+                    ])
+                   }
 
             }
         }
