@@ -39,7 +39,7 @@ pipeline {
                 // Checkout the branch specified by the user in the build parameter
                     checkout([$class: 'GitSCM',
                               branches: [[name: "*/${params.BRANCH_NAME}"]],
-                              userRemoteConfigs: [[url: 'https://github.com/your-repository.git']]
+                              userRemoteConfigs: [[url: 'https://github.com/Sagandeep-kaur/JenkinsPract.git']]
                     ])
                    }
 
