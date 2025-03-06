@@ -42,6 +42,7 @@ pipeline {
                     bat """
                     git config core.sparseCheckout true
                     echo "JenkinsPract/Pract/test_one.py" >> .git/info/sparse-checkout  // specify paths to checkout
+                    git checkout backup-branch
                     git clone --no-checkout https://github.com/Sagandeep-kaur/JenkinsPract.git
                     cd JenkinsPract
                     git status
