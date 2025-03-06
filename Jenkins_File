@@ -5,7 +5,7 @@ pipeline {
         // Define Python virtual environment path
         VENV_DIR = "${WORKSPACE}/.venv"
         REPORT_DIR = "${WORKSPACE}/test-reports"
-        SPARSE_DIR = "Pract/*"
+        SPARSE_DIR = "Pract"
         
     }
 
@@ -44,7 +44,7 @@ pipeline {
                     git config core.sparseCheckout true
                     echo "${SPARSE_DIR}" >> .git/info/sparse-checkout  // specify paths to checkout
                     git checkout backup-branch
-                    dir JenkinsPract/Pract
+                    dir Pract
                     git clone --no-checkout https://github.com/Sagandeep-kaur/JenkinsPract.git
                     cd Pract
                     git status
@@ -91,6 +91,7 @@ pipeline {
                     bat """
                         if not exist "${REPORT_DIR}" mkdir "${REPORT_DIR}"
                         call ${VENV_DIR}\\Scripts\\activate.bat
+                        pytest C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Sparse_Checkout_pipeline\\Pract
                         pytest ${SPARSE_DIR} ${params.PYTEST_OPTIONS}  --maxfail=5 --disable-warnings --html="${REPORT_DIR}\\test_report.html" --junitxml="${REPORT_DIR}\\test_report.xml"
                         
                         dir "${REPORT_DIR}"
