@@ -41,9 +41,9 @@ pipeline {
                     // Enable sparse-checkout and specify the desired paths
                     bat """
                     git config core.sparseCheckout true
-                    echo "folderA/*" >> .git/info/sparse-checkout  // specify paths to checkout
-                    git clone --no-checkout https://your-repo-url.git
-                    cd your-repo-name
+                    echo "Pract/*" >> .git/info/sparse-checkout  // specify paths to checkout
+                    git clone --no-checkout https://github.com/Sagandeep-kaur/JenkinsPract.git
+                    cd JenkinsPract
                     git checkout HEAD
                     """
                    }
