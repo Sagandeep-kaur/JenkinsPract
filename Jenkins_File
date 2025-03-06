@@ -5,7 +5,8 @@ pipeline {
         // Define Python virtual environment path
         VENV_DIR = "${WORKSPACE}/.venv"
         REPORT_DIR = "${WORKSPACE}/test-reports"
-        SPARSE_DIR = "/Pract/*"
+        SPARSE_DIR = "Pract/*"
+        REPO_URL = 'https://github.com/Sagandeep-kaur/JenkinsPract.git'
         
     }
 
@@ -41,8 +42,9 @@ pipeline {
                 // Checkout the branch specified by the user in the build parameter
                     // Enable sparse-checkout and specify the desired paths
                     bat """
-                    cd https://github.com/Sagandeep-kaur/JenkinsPract.git
+                    
                     git clone --no-checkout https://github.com/Sagandeep-kaur/JenkinsPract.git
+                    cd $(basename ${REPO_URL} .git)
                     git config core.sparseCheckout true
                     echo "${SPARSE_DIR}" >> .git/info/sparse-checkout  // specify paths to checkout
                     git checkout backup-branch
