@@ -46,7 +46,7 @@ pipeline {
                     git checkout backup-branch
                     dir JenkinsPract/Pract
                     git clone --no-checkout https://github.com/Sagandeep-kaur/JenkinsPract.git
-                    cd JenkinsPract
+                    cd Pract
                     git status
                     git checkout HEAD
                     """
