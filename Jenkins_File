@@ -45,7 +45,7 @@ pipeline {
                     echo "${SPARSE_DIR}" >> .git/info/sparse-checkout  // specify paths to checkout
                     git checkout backup-branch
                     dir
-                    dir C:\ProgramData\Jenkins\.jenkins\workspace\Sparse_Checkout_pipeline\
+                    
 
                     dir Pract
                     git clone --no-checkout https://github.com/Sagandeep-kaur/JenkinsPract.git
