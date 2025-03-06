@@ -43,8 +43,9 @@ pipeline {
                     // Enable sparse-checkout and specify the desired paths
                     bat """
                     
-                    git clone --no-checkout https://github.com/Sagandeep-kaur/JenkinsPract.git
-                    cd $(basename ${REPO_URL} .git)
+                    git clone --no-checkout ${REPO_URL}
+                    for /f "tokens=1 delims=/" %%a in ("%REPO_URL%") do set REPO_NAME=%%a
+                    set REPO_NAME=%REPO_NAME:.git=%
                     git config core.sparseCheckout true
                     echo "${SPARSE_DIR}" >> .git/info/sparse-checkout  // specify paths to checkout
                     git checkout backup-branch
