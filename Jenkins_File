@@ -42,11 +42,12 @@ pipeline {
                     // Enable sparse-checkout and specify the desired paths
                     bat """
                     cd https://github.com/Sagandeep-kaur/JenkinsPract.git
+                    git clone --no-checkout https://github.com/Sagandeep-kaur/JenkinsPract.git
                     git config core.sparseCheckout true
                     echo "${SPARSE_DIR}" >> .git/info/sparse-checkout  // specify paths to checkout
                     git checkout backup-branch
                     dir Pract
-                    git clone --no-checkout https://github.com/Sagandeep-kaur/JenkinsPract.git
+                    
                     cd JenkinsPract
                     git status
                     git checkout HEAD
