@@ -44,6 +44,7 @@ pipeline {
                     echo "Pract/*" >> .git/info/sparse-checkout  // specify paths to checkout
                     git clone --no-checkout https://github.com/Sagandeep-kaur/JenkinsPract.git
                     cd JenkinsPract
+                    git status
                     git checkout HEAD
                     """
                    }
