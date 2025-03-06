@@ -5,7 +5,7 @@ pipeline {
         // Define Python virtual environment path
         VENV_DIR = "${WORKSPACE}/.venv"
         REPORT_DIR = "${WORKSPACE}/test-reports"
-        SPARSE_DIR = "Pract/*"
+        SPARSE_DIR = "/Pract/*"
         
     }
 
