@@ -49,9 +49,7 @@ pipeline {
                     git config core.sparseCheckout true
                     echo "${SPARSE_DIR}" >> .git/info/sparse-checkout  // specify paths to checkout
                     git checkout backup-branch
-                    dir JenkinsPract/Pract/
                     
-                    cd JenkinsPract/Pract/
                     git status
                     git checkout HEAD
                     """
