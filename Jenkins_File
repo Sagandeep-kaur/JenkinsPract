@@ -117,7 +117,7 @@ pipeline {
     post {
         always {
             // Clean up, deactivate the virtual environment
-            cleanWs()
+            //cleanWs()
         }
     }
 }
