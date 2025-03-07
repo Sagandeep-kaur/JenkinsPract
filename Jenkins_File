@@ -5,7 +5,7 @@ pipeline {
         // Define Python virtual environment path
         VENV_DIR = "${WORKSPACE}/.venv"
         REPORT_DIR = "${WORKSPACE}/test-reports"
-        SPARSE_DIR = "JenkinsPract/Pract/*"
+        SPARSE_DIR = "Pract/*"
         REPO_URL = 'https://github.com/Sagandeep-kaur/JenkinsPract.git'
         
     }
@@ -118,6 +118,7 @@ pipeline {
         always {
             // Clean up, deactivate the virtual environment
             //cleanWs()
+            echo 'post'
         }
     }
 }
