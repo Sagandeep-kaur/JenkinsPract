@@ -1,7 +1,7 @@
 node {
     // Set environment variables if needed
-    def pythonPath = "C:\\path\\to\\python.exe" // Path to Python executable
-    def pytestPath = "C:\\path\\to\\Scripts\\pytest.exe" // Path to pytest executable (if different from default)
+     def VENV_DIR = "${WORKSPACE}/.venv"
+     def REPORT_DIR = "${WORKSPACE}/test-reports"
 
     // Checkout the code from the repository
     stage('Checkout') {
@@ -10,16 +10,32 @@ node {
 
     // Install dependencies (if needed)
     stage('Install Dependencies') {
+         steps {
+                // Create a virtual environment if it doesn't exist
+                script {
+                    if (!fileExists("${VENV_DIR}/bin/activate")) {
+                        bat "python -m venv ${VENV_DIR}"
+                        
+                }
+                }
         bat """
-        ${pythonPath} -m pip install --upgrade pip
-        ${pythonPath} -m pip install -r requirements.txt
+               call ${VENV_DIR}\\Scripts\\activate.bat
+               pip3 install -r requirements.txt
+               pip3 install pytest-xdist
+               pip3 install  pytest-junitxml
+               pip3 show selenium
+               pip3 install pytest-html
         """
+    }
     }
 
     // Run pytest tests
     stage('Run Tests') {
         bat """
-        ${pytestPath} --maxfail=1 --disable-warnings -q
+        if not exist "${REPORT_DIR}" mkdir "${REPORT_DIR}"
+                        call ${VENV_DIR}\\Scripts\\activate.bat
+                        pytest  --maxfail=5 --disable-warnings --html="${REPORT_DIR}\\test_report.html" --junitxml="${REPORT_DIR}\\test_report.xml"
+                        dir "${REPORT_DIR}"
         """
     }
 
