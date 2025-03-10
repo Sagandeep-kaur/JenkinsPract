@@ -5,8 +5,7 @@ pipeline {
         // Define Python virtual environment path
         VENV_DIR = "${WORKSPACE}/.venv"
         REPORT_DIR = "${WORKSPACE}/test-reports"
-        SONARQUBE = 'SonarQube'
-        SONAR_TOKEN = 'sonar-token'
+        
     }
 
     parameters {
@@ -18,22 +17,22 @@ pipeline {
     
 
     stages {
-       //stage('Trigger Downstream Jobs') {
-            //steps {
-                //script {
-                    // Trigger three downstream jobs in parallel
-                   // parallel(
-                       // "Downstream Job 1": {
-                          //  build job: 'pytest_job1'
-                       // },
-                       // "Downstream Job 2": {
-                       //     build job: 'pytest_job2'
-                      //  },
+       stage('Trigger Downstream Jobs') {
+            steps {
+                script {
+                     Trigger three downstream jobs in parallel
+                     parallel(
+                        "Downstream Job 1": {
+                            build job: 'pytest_job1'
+                         },
+                         "Downstream Job 2": {
+                            build job: 'pytest_job2'
+                        },
                        
-                //    )
-              //  }
-       //     }
-   //    }
+                    )
+                }
+            }
+       }
         stage('Checkout') {
             steps {
                    script {
