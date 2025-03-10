@@ -94,7 +94,7 @@ pipeline {
                     bat """
                         if not exist "${REPORT_DIR}" mkdir "${REPORT_DIR}"
                         call ${VENV_DIR}\\Scripts\\activate.bat
-                        pytest C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Sparse_Checkout_pipeline\\Pract
+                        //pytest C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\Sparse_Checkout_pipeline\\Pract
                         pytest ${SPARSE_DIR} ${params.PYTEST_OPTIONS}  --maxfail=5 --disable-warnings --html="${REPORT_DIR}\\test_report.html" --junitxml="${REPORT_DIR}\\test_report.xml"
                         
                         dir "${REPORT_DIR}"
