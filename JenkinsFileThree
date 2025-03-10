@@ -41,6 +41,7 @@ node {
 
     // Archive the test results
     stage('Archive Test Results') {
-        junit '**/test-*.xml' // Adjust the pattern to match your test result format
+        archiveArtifacts artifacts: '**/test-reports/test_report.html', allowEmptyArchive: true
+                archiveArtifacts artifacts: '**/test-reports/test_report.xml', allowEmptyArchive: true
     }
 }
