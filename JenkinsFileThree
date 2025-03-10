@@ -1,0 +1,30 @@
+node {
+    // Set environment variables if needed
+    def pythonPath = "C:\\path\\to\\python.exe" // Path to Python executable
+    def pytestPath = "C:\\path\\to\\Scripts\\pytest.exe" // Path to pytest executable (if different from default)
+
+    // Checkout the code from the repository
+    stage('Checkout') {
+        checkout scm
+    }
+
+    // Install dependencies (if needed)
+    stage('Install Dependencies') {
+        bat """
+        ${pythonPath} -m pip install --upgrade pip
+        ${pythonPath} -m pip install -r requirements.txt
+        """
+    }
+
+    // Run pytest tests
+    stage('Run Tests') {
+        bat """
+        ${pytestPath} --maxfail=1 --disable-warnings -q
+        """
+    }
+
+    // Archive the test results
+    stage('Archive Test Results') {
+        junit '**/test-*.xml' // Adjust the pattern to match your test result format
+    }
+}
