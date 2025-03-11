@@ -36,22 +36,11 @@ pipeline {
        //     }
    //    }
         stage('Checkout') {
-            steps {
-                   script {
-                // Checkout the code from the repository
-                // Checkout the branch specified by the user in the build parameter
-                    // Enable sparse-checkout and specify the desired paths
-                     checkout([$class: 'GitSCM',
-                              branches: [[name: "*/${params.BRANCH_NAME}"]],
-                              userRemoteConfigs: [[url: 'https://github.com/Sagandeep-kaur/JenkinsPract.git']]
-                    ])
-                    bat """
-                    echo Branch Name: ${params.BRANCH_NAME}
-                   """
-                   }
-
-            }
+            checkout scm
         }
+
+            
+        
         
         stage('Set up Python Environment') {
             steps {
