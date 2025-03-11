@@ -59,7 +59,7 @@ pipeline {
                     //${VENV_DIR}\\Scripts\\activate
                     call ${VENV_DIR}\\Scripts\\activate.bat
                      pip --version
-                     pip3 install -r requirements.txt
+                     pip3 install -r Pract/requirements.txt
                      pip3 install pytest-xdist
                      pip3 install  pytest-junitxml
                      pip3 show selenium
@@ -81,7 +81,7 @@ pipeline {
                         if not exist "${REPORT_DIR}" mkdir "${REPORT_DIR}"
                         call ${VENV_DIR}\\Scripts\\activate.bat
                         
-                        pytest  ${params.PYTEST_OPTIONS}  --maxfail=5 --disable-warnings --html="${REPORT_DIR}\\test_report.html" --junitxml="${REPORT_DIR}\\test_report.xml"
+                        pytest  ${params.PYTEST_OPTIONS} Pract/test_one.py  --maxfail=5 --disable-warnings --html="${REPORT_DIR}\\test_report.html" --junitxml="${REPORT_DIR}\\test_report.xml"
                         
                         dir "${REPORT_DIR}"
                        
