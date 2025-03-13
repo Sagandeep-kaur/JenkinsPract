@@ -59,7 +59,7 @@ pipeline {
                     //${VENV_DIR}\\Scripts\\activate
                     call ${VENV_DIR}\\Scripts\\activate.bat
                      pip --version
-                     pip3 install -r Pract/requirements.txt
+                     pip3 install -r Pract/Requirements.txt
                      pip3 install pytest-xdist
                      pip3 install  pytest-junitxml
                      pip3 show selenium
